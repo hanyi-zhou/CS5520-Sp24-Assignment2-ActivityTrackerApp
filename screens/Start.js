@@ -3,6 +3,8 @@ import React from "react";
 import EmailInput from "../components/EmailInput";
 import InvalidEmailText from "../components/InvalidEmailText";
 import PhoneNumberInput from "../components/PhoneNumberInput";
+import InvalidPhoneNumberText from "../components/InvalidPhoneNumberText";
+import ResetButton from "../components/ResetButton";
 
 export default function Start() {
   const [email, setEmail] = React.useState("");
@@ -31,6 +33,13 @@ export default function Start() {
     }
   }
 
+  function handleReset() {
+    setEmail("");
+    setPhoneNumber("");
+    setEmailError(false);
+    setPhoneNumberError(false);
+  }
+
   return (
     <View>
       <View>
@@ -44,6 +53,10 @@ export default function Start() {
           value={phoneNumber}
           onPhoneNumberChange={handlePhoneNumberChange}
         />
+      </View>
+      <View>{phoneNumberError ? <InvalidPhoneNumberText /> : null}</View>
+      <View>
+        <ResetButton onReset={handleReset} />
       </View>
     </View>
   );
