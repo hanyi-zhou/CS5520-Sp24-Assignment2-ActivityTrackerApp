@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, NameInput } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import EmailInput from "../components/EmailInput";
 import InvalidEmailText from "../components/InvalidEmailText";
 import PhoneNumberInput from "../components/PhoneNumberInput";
@@ -8,12 +7,11 @@ import InvalidPhoneNumberText from "../components/InvalidPhoneNumberText";
 import ResetButton from "../components/ResetButton";
 import StartButton from "../components/StartButton";
 
-export default function Start() {
+export default function Start({ navigation }) {
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [phoneNumberError, setPhoneNumberError] = React.useState("");
-  const navigation = useNavigation();
 
   function handleEmailChange(email) {
     setEmail(email);
@@ -57,12 +55,12 @@ export default function Start() {
     const isPhoneNumberValid = validatePhoneNumberInput(phoneNumber);
     if (isEmailValid && isPhoneNumberValid) {
       // Navigate to the next screen
-      navigation.navigate("All Activities");
+      navigation.navigate("AllActivities");
     }
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View>
         <Text>Email Address</Text>
         <EmailInput value={email} onEmailChange={handleEmailChange} />
@@ -87,4 +85,10 @@ export default function Start() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
