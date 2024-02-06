@@ -1,9 +1,7 @@
 import { StyleSheet, Text, View, NameInput } from "react-native";
 import React from "react";
 import EmailInput from "../components/EmailInput";
-import InvalidEmailText from "../components/InvalidEmailText";
 import PhoneNumberInput from "../components/PhoneNumberInput";
-import InvalidPhoneNumberText from "../components/InvalidPhoneNumberText";
 import ResetButton from "../components/ResetButton";
 import StartButton from "../components/StartButton";
 
@@ -18,8 +16,13 @@ export default function Start({ navigation }) {
   }
 
   function validateEmailInput(email) {
-    // If the email is empty or does not contain an @ or a .
-    if (email.length === 0 || !email.includes("@") || !email.includes(".")) {
+    if (
+      email.length === 0 ||
+      !email.includes("@") ||
+      !email.includes(".") ||
+      email.indexOf("@") === 0 ||
+      email.lastIndexOf(".") === email.length - 1
+    ) {
       setEmailError("Please enter a valid email address.");
       return false;
     }
@@ -65,7 +68,7 @@ export default function Start({ navigation }) {
         <Text>Email Address</Text>
         <EmailInput value={email} onEmailChange={handleEmailChange} />
       </View>
-      <View>{emailError !== "" ? <InvalidEmailText /> : null}</View>
+      <View>{emailError !== "" ? <Text>{emailError}</Text> : null}</View>
       <View>
         <Text>Phone Number</Text>
         <PhoneNumberInput
@@ -73,7 +76,9 @@ export default function Start({ navigation }) {
           onPhoneNumberChange={handlePhoneNumberChange}
         />
       </View>
-      <View>{phoneNumberError !== "" ? <InvalidPhoneNumberText /> : null}</View>
+      <View>
+        {phoneNumberError !== "" ? <Text>{phoneNumberError}</Text> : null}
+      </View>
       <View>
         <ResetButton onReset={handleReset} />
         <StartButton
