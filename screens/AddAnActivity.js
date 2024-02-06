@@ -3,8 +3,9 @@ import React from "react";
 import ActivityDropDownPicker from "../components/ActivityDropDownPicker";
 import DurationInput from "../components/DurationInput";
 import DatePicker from "../components/DatePicker";
+import CancelButton from "../components/CancelButton";
 
-export default function AddAnActivity() {
+export default function AddAnActivity({ navigation }) {
   const [activity, setActivity] = React.useState("");
   const [duration, setDuration] = React.useState("");
 
@@ -19,6 +20,12 @@ export default function AddAnActivity() {
       return false;
     }
     return true;
+  }
+
+  function handleCancel() {
+    setActivity("");
+    setDuration("");
+    navigation.goBack();
   }
 
   return (
@@ -37,6 +44,9 @@ export default function AddAnActivity() {
       <View>
         <Text>Date *</Text>
         <DatePicker />
+      </View>
+      <View>
+        <CancelButton onCancel={handleCancel} />
       </View>
     </View>
   );
