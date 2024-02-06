@@ -14,6 +14,7 @@ export default function ActivityDorpDownPicker() {
     { label: "Cycling", value: "cycling" },
     { label: "Hiking", value: "hiking" },
   ]);
+
   return (
     <DropDownPicker
       open={open}
