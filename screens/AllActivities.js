@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { ActivitiesList } from "../components/ActivitiesList";
+import { ActivitiesListContext } from "../components/ActivitiesListContext";
 
 export default function AllActivities() {
-  const activities = React.useContext(ActivitiesList);
+  const activities = React.useContext(ActivitiesListContext);
   console.log(activities);
+
   return (
     <View style={styles.container}>
       <Text>AllActivities</Text>

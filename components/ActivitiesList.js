@@ -1,3 +1,12 @@
-import { createContext } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
-export const ActivitiesList = createContext([]);
+export default function ActivitiesList() {
+  return (
+    <View>
+      <Text>ActivitiesList</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({});
