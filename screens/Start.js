@@ -9,9 +9,9 @@ import ConfirmButton from "../components/ConfirmButton";
 
 export default function Start() {
   const [email, setEmail] = React.useState("");
-  const [emailError, setEmailError] = React.useState(false);
+  const [emailError, setEmailError] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [phoneNumberError, setPhoneNumberError] = React.useState(false);
+  const [phoneNumberError, setPhoneNumberError] = React.useState("");
 
   function handleEmailChange(email) {
     setEmail(email);
@@ -20,8 +20,10 @@ export default function Start() {
   function validateEmailInput(email) {
     // If the email is empty or does not contain an @ or a .
     if (email.length === 0 || !email.includes("@") || !email.includes(".")) {
-      setEmailError(true);
+      setEmailError("Please enter a valid email address.");
+      return false;
     }
+    return true;
   }
 
   function handlePhoneNumberChange(phoneNumber) {
@@ -32,23 +34,28 @@ export default function Start() {
     const isNumber = /^[0-9]+$/.test(phoneNumber);
     // If the phone number is not a number or is empty or is less than 10 digits
     if (!isNumber || phoneNumber.length === 0 || phoneNumber.length < 10) {
-      setPhoneNumberError(true);
+      setPhoneNumberError("Please enter a valid phone number.");
+      return false;
     }
+    return true;
   }
 
   function handleReset() {
     setEmail("");
     setPhoneNumber("");
-    setEmailError(false);
-    setPhoneNumberError(false);
+    setEmailError("");
+    setPhoneNumberError("");
   }
 
   function handleConfirm() {
+    setEmailError("");
+    setPhoneNumberError("");
     // Validate the email and phone number
-    if (!emailError && !phoneNumberError) {
+    const isEmailValid = validateEmailInput(email);
+    const isPhoneNumberValid = validatePhoneNumberInput(phoneNumber);
+    if (isEmailValid && isPhoneNumberValid) {
       // Navigate to the next screen
-      setEmailError(false);
-      setPhoneNumberError(false);
+      console.log("Valid input");
     }
   }
 
@@ -58,7 +65,7 @@ export default function Start() {
         <Text>Email Address</Text>
         <EmailInput value={email} onEmailChange={handleEmailChange} />
       </View>
-      <View>{emailError ? <InvalidEmailText /> : null}</View>
+      <View>{emailError !== "" ? <InvalidEmailText /> : null}</View>
       <View>
         <Text>Phone Number</Text>
         <PhoneNumberInput
@@ -66,7 +73,7 @@ export default function Start() {
           onPhoneNumberChange={handlePhoneNumberChange}
         />
       </View>
-      <View>{phoneNumberError ? <InvalidPhoneNumberText /> : null}</View>
+      <View>{phoneNumberError !== "" ? <InvalidPhoneNumberText /> : null}</View>
       <View>
         <ResetButton onReset={handleReset} />
         <ConfirmButton
