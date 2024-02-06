@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 
+// The ActivitiesTabBar component is a custom tab bar that takes in
+// the navigation, state, and descriptors from the useTabBar hook.
 export default function ActivitiesTabBar({ navigation, state, descriptors }) {
   return (
     <View style={styles.container}>
@@ -35,6 +37,7 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
 
         return (
           <TouchableOpacity
+            key={route.key}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -56,6 +59,5 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    alignContent: "space-between",
   },
 });
