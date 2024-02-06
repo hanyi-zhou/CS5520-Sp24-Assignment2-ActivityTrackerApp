@@ -8,14 +8,20 @@ import { useActivitiesList } from "./ActivitiesListContext";
 export default function ActivitiesList({ type }) {
   const { activities } = useActivitiesList();
 
+  // Validate the activity based on the type and duration
+  const validateActivitySpecial = (activity) => {
+    if (activity.type === "Running" || activity.type === "Weights") {
+      if (parseInt(activity.duration) > 60) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   // Filter the activities based on the screen type
   const filteredActivities =
     type === "special"
-      ? activities.filter(
-          (activity) =>
-            (activity.type === "Running" || activity.type === "Weights") &&
-            parseInt(activity.duration) > 60
-        )
+      ? activities.filter((activity) => validateActivitySpecial(activity))
       : activities;
 
   return (
@@ -25,12 +31,7 @@ export default function ActivitiesList({ type }) {
       renderItem={({ item }) => (
         <View>
           <Text>{item.type}</Text>
-          <Text>
-            {(item.type === "Running" || item.type === "Weights") &&
-            parseInt(item.duration) > 60
-              ? "⚠️ " + item.type
-              : item.type}
-          </Text>
+          <Text>{validateActivitySpecial(item) ? "⚠️" : null}</Text>
           <Text>{item.date}</Text>
           <Text>{item.duration} min</Text>
         </View>
