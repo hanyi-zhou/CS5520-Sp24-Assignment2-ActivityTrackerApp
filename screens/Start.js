@@ -1,17 +1,19 @@
 import { StyleSheet, Text, View, NameInput } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import EmailInput from "../components/EmailInput";
 import InvalidEmailText from "../components/InvalidEmailText";
 import PhoneNumberInput from "../components/PhoneNumberInput";
 import InvalidPhoneNumberText from "../components/InvalidPhoneNumberText";
 import ResetButton from "../components/ResetButton";
-import ConfirmButton from "../components/ConfirmButton";
+import StartButton from "../components/StartButton";
 
 export default function Start() {
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [phoneNumberError, setPhoneNumberError] = React.useState("");
+  const navigation = useNavigation();
 
   function handleEmailChange(email) {
     setEmail(email);
@@ -47,7 +49,7 @@ export default function Start() {
     setPhoneNumberError("");
   }
 
-  function handleConfirm() {
+  function handleStart() {
     setEmailError("");
     setPhoneNumberError("");
     // Validate the email and phone number
@@ -55,7 +57,7 @@ export default function Start() {
     const isPhoneNumberValid = validatePhoneNumberInput(phoneNumber);
     if (isEmailValid && isPhoneNumberValid) {
       // Navigate to the next screen
-      console.log("Valid input");
+      navigation.navigate("All Activities");
     }
   }
 
@@ -76,8 +78,8 @@ export default function Start() {
       <View>{phoneNumberError !== "" ? <InvalidPhoneNumberText /> : null}</View>
       <View>
         <ResetButton onReset={handleReset} />
-        <ConfirmButton
-          onConfirm={handleConfirm}
+        <StartButton
+          onStart={handleStart}
           isInputEmpty={!email && !phoneNumber}
         />
       </View>
