@@ -9,7 +9,7 @@ export default function AddButton({ onAdd }) {
   }
   return (
     <View>
-      <Button title="Add" onPress={addHandler} color="yellow" />
+      <Button title="Add" onPress={addHandler} color="orange" />
     </View>
   );
 }

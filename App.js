@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Start from "./screens/Start";
 import AllActivities from "./screens/AllActivities";
+import SpecialActivities from "./screens/SpecialActivities";
+import AddAnActivity from "./screens/AddAnActivity";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +15,8 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="AllActivities" component={AllActivities} />
+        <Stack.Screen name="SpecialActivities" component={SpecialActivities} />
+        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
       </Stack.Navigator>
     </NavigationContainer>
   );
