@@ -6,7 +6,7 @@ import AddButton from "../components/AddButton";
 
 export default function AllActivities({ navigation }) {
   function handleAdd() {
-    navigation.navigate("AddAnActivity");
+    navigation.push("Add An Activity");
   }
   return (
     <View style={styles.container}>
@@ -14,7 +14,7 @@ export default function AllActivities({ navigation }) {
         <ActivitiesHeader type="all" />
         <AddButton onAdd={handleAdd} />
       </View>
-      {/* <ActivitiesList type="all" /> */}
+      <ActivitiesList type="all" />
     </View>
   );
 }

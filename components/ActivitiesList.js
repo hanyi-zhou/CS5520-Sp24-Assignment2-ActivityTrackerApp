@@ -6,7 +6,7 @@ import { ActivitiesListContext } from "./ActivitiesListContext";
 // activities based on the type. It then renders the filtered activities
 // in a FlatList.
 export default function ActivitiesList({ type }) {
-  const { activities } = React.useContext(ActivitiesListContext);
+  const activities = React.useContext(ActivitiesListContext);
 
   // Filter the activities based on the activity type
   const filteredActivities =

@@ -6,7 +6,7 @@ import AddButton from "../components/AddButton";
 
 export default function SpecialActivities({ navigation }) {
   function handleAdd() {
-    navigation.navigate("AddAnActivity");
+    navigation.navigate("Add An Activity");
   }
   return (
     <View style={styles.container}>

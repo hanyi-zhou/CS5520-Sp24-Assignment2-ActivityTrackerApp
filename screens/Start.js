@@ -58,7 +58,7 @@ export default function Start({ navigation }) {
     const isPhoneNumberValid = validatePhoneNumberInput(phoneNumber);
     if (isEmailValid && isPhoneNumberValid) {
       // Navigate to the next screen
-      navigation.navigate("AllActivities");
+      navigation.navigate("Activities");
     }
   }
 
