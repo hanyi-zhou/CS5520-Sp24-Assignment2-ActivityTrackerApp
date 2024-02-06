@@ -1,11 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { ActivitiesListContext } from "./ActivitiesListContext";
 
-export default function ActivitiesList() {
+export default function ActivitiesList({ type }) {
+  const { activities } = React.useContext(ActivitiesListContext);
+
+  // Filter the activities based on the type
+  const filteredActivities =
+    type === "special"
+      ? activities.filter(
+          (activity) =>
+            (activity.type === "Running" || activity.type === "Weights") &&
+            activity.duration > 60
+        )
+      : activities;
+
   return (
-    <View>
-      <Text>ActivitiesList</Text>
-    </View>
+    <FlatList
+      data={filteredActivities}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <View>
+          <Text>{item.type}</Text>
+          <Text>{item.date}</Text>
+          <Text>{item.duration} min</Text>
+        </View>
+      )}
+    />
   );
 }
 
