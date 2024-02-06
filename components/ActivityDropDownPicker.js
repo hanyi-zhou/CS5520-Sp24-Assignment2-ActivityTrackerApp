@@ -4,7 +4,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 // The ActivityDorpDownPicker component is a simple component that
 // displays a dropdown picker to select an activity.
-export default function ActivityDorpDownPicker() {
+export default function ActivityDorpDownPicker({ onActivityChange }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
@@ -15,6 +15,10 @@ export default function ActivityDorpDownPicker() {
     { label: "Hiking", value: "hiking" },
   ]);
 
+  function handleActivityChange(activity) {
+    onActivityChange(activity);
+  }
+
   return (
     <DropDownPicker
       open={open}
@@ -24,6 +28,7 @@ export default function ActivityDorpDownPicker() {
       setValue={setValue}
       setItems={setItems}
       placeholder="Select An Activity"
+      onChangeValue={handleActivityChange}
     />
   );
 }

@@ -4,7 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 // The DatePicker component is a controlled component that displays a
 // date picker when the user presses the input field.
-export default function DatePicker() {
+export default function DatePicker({ onDateChange }) {
   const [date, setDate] = React.useState(null);
   const [show, setShow] = React.useState(false);
 
@@ -12,6 +12,7 @@ export default function DatePicker() {
     const currentDate = selectedDate || date;
     setDate(currentDate);
     setShow(false);
+    onDateChange(currentDate);
   };
 
   const showDatePicker = () => {
