@@ -56,5 +56,6 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    alignContent: "space-between",
   },
 });

@@ -7,16 +7,32 @@ import AllActivities from "./screens/AllActivities";
 import SpecialActivities from "./screens/SpecialActivities";
 import AddAnActivity from "./screens/AddAnActivity";
 import ActivitiesTabBar from "./components/ActivitiesTabBar";
+import AddButton from "./components/AddButton";
 
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-const ActivitiesStack = () => {
+const ActivitiesStack = ({ navigation }) => {
+  function handleAdd() {
+    navigation.navigate("Add An Activity");
+  }
   return (
     <Tab.Navigator tabBar={(props) => <ActivitiesTabBar {...props} />}>
-      <Tab.Screen name="All Activities" component={AllActivities} />
-      <Tab.Screen name="Special Activities" component={SpecialActivities} />
+      <Tab.Screen
+        name="All Activities"
+        component={AllActivities}
+        options={({ navigation }) => ({
+          headerRight: () => <AddButton onAdd={handleAdd} />,
+        })}
+      />
+      <Tab.Screen
+        name="Special Activities"
+        component={SpecialActivities}
+        options={({ navigation }) => ({
+          headerRight: () => <AddButton onAdd={handleAdd} />,
+        })}
+      />
     </Tab.Navigator>
   );
 };
