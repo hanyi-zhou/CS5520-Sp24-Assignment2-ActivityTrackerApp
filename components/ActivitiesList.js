@@ -25,6 +25,12 @@ export default function ActivitiesList({ type }) {
       renderItem={({ item }) => (
         <View>
           <Text>{item.type}</Text>
+          <Text>
+            {(item.type === "Running" || item.type === "Weights") &&
+            parseInt(item.duration) > 60
+              ? "⚠️ " + item.type
+              : item.type}
+          </Text>
           <Text>{item.date}</Text>
           <Text>{item.duration} min</Text>
         </View>
