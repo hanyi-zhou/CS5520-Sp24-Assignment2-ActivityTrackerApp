@@ -1,20 +1,20 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { ActivitiesListContext } from "./ActivitiesListContext";
+import { useActivitiesList } from "./ActivitiesListContext";
 
 // The ActivitiesList component takes in a type prop and filters the
 // activities based on the type. It then renders the filtered activities
 // in a FlatList.
 export default function ActivitiesList({ type }) {
-  const activities = React.useContext(ActivitiesListContext);
+  const { activities } = useActivitiesList();
 
-  // Filter the activities based on the activity type
+  // Filter the activities based on the screen type
   const filteredActivities =
     type === "special"
       ? activities.filter(
           (activity) =>
             (activity.type === "Running" || activity.type === "Weights") &&
-            activity.duration > 60
+            parseInt(activity.duration) > 60
         )
       : activities;
 

@@ -8,6 +8,7 @@ import SpecialActivities from "./screens/SpecialActivities";
 import AddAnActivity from "./screens/AddAnActivity";
 import ActivitiesTabBar from "./components/ActivitiesTabBar";
 import AddButton from "./components/AddButton";
+import { ActivitiesListProvider } from "./components/ActivitiesListContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,20 +40,22 @@ const ActivitiesStack = ({ navigation }) => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Start" component={Start} />
-        <Stack.Screen name="Activities" component={ActivitiesStack} />
-        <Stack.Screen
-          name="Add An Activity"
-          component={AddAnActivity}
-          options={{
-            headerShown: true,
-            headerBackTitleVisible: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ActivitiesListProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Start" component={Start} />
+          <Stack.Screen name="Activities" component={ActivitiesStack} />
+          <Stack.Screen
+            name="Add An Activity"
+            component={AddAnActivity}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ActivitiesListProvider>
   );
 }
 

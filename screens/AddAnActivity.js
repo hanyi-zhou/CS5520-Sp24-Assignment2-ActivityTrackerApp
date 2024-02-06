@@ -5,8 +5,10 @@ import DurationInput from "../components/DurationInput";
 import DatePicker from "../components/DatePicker";
 import CancelButton from "../components/CancelButton";
 import SaveButton from "../components/SaveButton";
+import { useActivitiesList } from "../components/ActivitiesListContext";
 
 export default function AddAnActivity({ navigation }) {
+  const { addActivity } = useActivitiesList();
   const [activity, setActivity] = React.useState("");
   const [duration, setDuration] = React.useState("");
   const [date, setDate] = React.useState(null);
@@ -41,17 +43,27 @@ export default function AddAnActivity({ navigation }) {
   function handleSave() {
     // Validate the duration
     const isDurationValid = validateDurationInput(duration);
+    // If the duration is not valid or the activity is empty or the date is empty
     if (!isDurationValid || activity.length === 0 || !date) {
+      // Show an alert
       Alert.alert("Invalid input", "Please check your input values");
     } else {
-      // Save the activity
-      console.log("Activity: ", activity);
-      console.log("Duration: ", duration);
-      console.log("Date: ", date);
+      // Create a new activity object
+      const newActivity = {
+        id: Math.random().toString(), // Generate a random id
+        type: activity,
+        duration: parseInt(duration),
+        date: date.toDateString(),
+      };
+      console.log(newActivity);
+      // Add the new activity to the activities list
+      addActivity(newActivity);
+
       // Clear the input fields
       setActivity("");
       setDuration("");
       setDate(null);
+
       // Navigate back to the previous screen
       navigation.goBack();
     }

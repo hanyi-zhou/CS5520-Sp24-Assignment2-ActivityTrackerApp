@@ -8,11 +8,13 @@ export default function ActivityDorpDownPicker({ onActivityChange }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
-    { label: "Swimming", value: "swimming" },
-    { label: "Weights", value: "weights" },
-    { label: "Yoga", value: "yoga" },
-    { label: "Cycling", value: "cycling" },
-    { label: "Hiking", value: "hiking" },
+    { label: "Running", value: "Running" },
+    { label: "Walking", value: "Walking" },
+    { label: "Swimming", value: "Swimming" },
+    { label: "Weights", value: "Weights" },
+    { label: "Yoga", value: "Yoga" },
+    { label: "Cycling", value: "Cycling" },
+    { label: "Hiking", value: "Hiking" },
   ]);
 
   function handleActivityChange(activity) {
