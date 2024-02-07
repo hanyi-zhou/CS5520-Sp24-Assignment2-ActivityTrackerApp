@@ -1,16 +1,24 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 
+// The DateInput component is a controlled component that takes in
+// a value and a function to handle the change of the date.
 export default function DateInput({ showDatePicker, value }) {
   return (
-    <View>
+    <TouchableOpacity onPress={showDatePicker}>
       <TextInput
-        onPressIn={showDatePicker} // Show the date picker when the input is pressed
+        onPressIn={showDatePicker}
         value={value}
         editable={false}
         style={{ borderBottomWidth: 1, borderBottomColor: "black" }}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 

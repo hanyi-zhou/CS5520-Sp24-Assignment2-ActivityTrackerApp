@@ -55,7 +55,7 @@ export default function AddAnActivity({ navigation }) {
         duration: parseInt(duration),
         date: date.toDateString(),
       };
-      console.log(newActivity);
+
       // Add the new activity to the activities list
       addActivity(newActivity);
 

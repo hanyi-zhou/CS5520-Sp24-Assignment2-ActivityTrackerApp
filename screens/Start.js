@@ -21,7 +21,9 @@ export default function Start({ navigation }) {
       !email.includes("@") ||
       !email.includes(".") ||
       email.indexOf("@") === 0 ||
-      email.lastIndexOf(".") === email.length - 1
+      email.lastIndexOf(".") === email.length - 1 ||
+      email.lastIndexOf(".") < email.indexOf("@") ||
+      email.lastIndexOf(".") - email.indexOf("@") === 1
     ) {
       setEmailError("Please enter a valid email address.");
       return false;

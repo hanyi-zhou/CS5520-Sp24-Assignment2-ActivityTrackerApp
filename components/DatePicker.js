@@ -25,10 +25,7 @@ export default function DatePicker({ onDateChange }) {
 
   return (
     <View>
-      <DateInput
-        showDatePicker={showDatePicker} // Show the date picker when the input is pressed
-        value={text}
-      />
+      <DateInput showDatePicker={showDatePicker} value={text} />
       {show && (
         <DateTimePicker
           value={date || new Date()}
