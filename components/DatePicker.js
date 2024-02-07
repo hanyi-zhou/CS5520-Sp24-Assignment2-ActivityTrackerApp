@@ -1,11 +1,13 @@
 import { StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
 import React from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import DateInput from "./DateInput";
 
 // The DatePicker component is a controlled component that displays a
 // date picker when the user presses the input field.
 export default function DatePicker({ onDateChange }) {
-  const [date, setDate] = React.useState(null);
+  const [text, setText] = React.useState("");
+  const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
 
   const onChange = (event, selectedDate) => {
@@ -13,24 +15,25 @@ export default function DatePicker({ onDateChange }) {
     setDate(currentDate);
     setShow(false);
     onDateChange(currentDate);
+    setText(currentDate.toDateString());
   };
 
   const showDatePicker = () => {
     setShow(true);
+    setText(date.toDateString());
   };
 
   return (
     <View>
-      <TextInput
-        onPressIn={showDatePicker} // Show the date picker when the input is pressed
-        value={date ? date.toDateString() : ""}
-        editable={false}
+      <DateInput
+        showDatePicker={showDatePicker} // Show the date picker when the input is pressed
+        value={text}
       />
       {show && (
         <DateTimePicker
           value={date || new Date()}
           mode={"date"}
-          display={"calender"}
+          display={"inline"}
           onChange={onChange}
         />
       )}
