@@ -14,30 +14,30 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
+// The ActivitiesStack component is a tab navigator that contains
+// the AllActivities and SpecialActivities screens. It also contains
+// a button to add a new activity.
 const ActivitiesStack = ({ navigation }) => {
   function handleAdd() {
     navigation.navigate("Add An Activity");
   }
   return (
-    <Tab.Navigator tabBar={(props) => <ActivitiesTabBar {...props} />}>
-      <Tab.Screen
-        name="All Activities"
-        component={AllActivities}
-        options={({ navigation }) => ({
-          headerRight: () => <AddButton onAdd={handleAdd} />,
-        })}
-      />
-      <Tab.Screen
-        name="Special Activities"
-        component={SpecialActivities}
-        options={({ navigation }) => ({
-          headerRight: () => <AddButton onAdd={handleAdd} />,
-        })}
-      />
+    <Tab.Navigator
+      tabBar={(props) => <ActivitiesTabBar {...props} />}
+      screenOptions={({ navigation }) => ({
+        headerRight: () => <AddButton onAdd={handleAdd} />,
+      })}
+    >
+      <Tab.Screen name="All Activities" component={AllActivities} />
+      <Tab.Screen name="Special Activities" component={SpecialActivities} />
     </Tab.Navigator>
   );
 };
 
+// The App component is the root component of the application. It
+// wraps the entire application with the ActivitiesListProvider and
+// contains the navigation stack for the Start, Activities, and
+// Add An Activity screens.
 export default function App() {
   return (
     <ActivitiesListProvider>

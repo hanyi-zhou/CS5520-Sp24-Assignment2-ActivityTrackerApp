@@ -5,16 +5,20 @@ import PhoneNumberInput from "../components/PhoneNumberInput";
 import ResetButton from "../components/ResetButton";
 import StartButton from "../components/StartButton";
 
+// The Start screen is a simple screen that displays a form to
+// enter an email address and a phone number.
 export default function Start({ navigation }) {
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [phoneNumberError, setPhoneNumberError] = React.useState("");
 
+  // Handle the email input change
   function handleEmailChange(email) {
     setEmail(email);
   }
 
+  // Validate the email input
   function validateEmailInput(email) {
     if (
       email.length === 0 ||
@@ -31,10 +35,12 @@ export default function Start({ navigation }) {
     return true;
   }
 
+  // Handle the phone number input change
   function handlePhoneNumberChange(phoneNumber) {
     setPhoneNumber(phoneNumber);
   }
 
+  // Validate the phone number input
   function validatePhoneNumberInput(phoneNumber) {
     const isNumber = /^[0-9]+$/.test(phoneNumber);
     // If the phone number is not a number or is empty or is less than 10 digits
@@ -45,6 +51,7 @@ export default function Start({ navigation }) {
     return true;
   }
 
+  // Reset the form
   function handleReset() {
     setEmail("");
     setPhoneNumber("");
@@ -52,6 +59,7 @@ export default function Start({ navigation }) {
     setPhoneNumberError("");
   }
 
+  // Handle the start button click
   function handleStart() {
     setEmailError("");
     setPhoneNumberError("");
