@@ -10,6 +10,9 @@ export default function DatePicker({ onDateChange }) {
   const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
 
+  // The onChange function is called when the user selects a date from
+  // the date picker. It updates the date state and calls the onDateChange
+  // function with the new date.
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
@@ -18,6 +21,9 @@ export default function DatePicker({ onDateChange }) {
     setText(currentDate.toDateString());
   };
 
+  // The showDatePicker function is called when the user presses the input
+  // field. It sets the show state to true and updates the text state with
+  // the current date.
   const showDatePicker = () => {
     setShow(true);
     setText(date.toDateString());
