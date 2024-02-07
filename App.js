@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -9,7 +9,9 @@ import AddAnActivity from "./screens/AddAnActivity";
 import ActivitiesTabBar from "./components/ActivitiesTabBar";
 import AddButton from "./components/AddButton";
 import { ActivitiesListProvider } from "./components/ActivitiesListContext";
+import { navigationBackgroundColor, navigationTintColor } from "./Styles";
 
+// Create the navigation stack and tab navigator
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -26,6 +28,10 @@ const ActivitiesStack = ({ navigation }) => {
       tabBar={(props) => <ActivitiesTabBar {...props} />}
       screenOptions={({ navigation }) => ({
         headerRight: () => <AddButton onAdd={handleAdd} />,
+        headerStyle: {
+          backgroundColor: navigationBackgroundColor,
+        },
+        headerTintColor: navigationTintColor,
       })}
     >
       <Tab.Screen name="All Activities" component={AllActivities} />
@@ -42,7 +48,11 @@ export default function App() {
   return (
     <ActivitiesListProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Activities" component={ActivitiesStack} />
           <Stack.Screen
@@ -51,6 +61,10 @@ export default function App() {
             options={{
               headerShown: true,
               headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: navigationBackgroundColor,
+              },
+              headerTintColor: navigationTintColor,
             }}
           />
         </Stack.Navigator>
@@ -59,4 +73,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create();

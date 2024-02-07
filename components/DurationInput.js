@@ -1,5 +1,6 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import React from "react";
+import { inputContainerStyle } from "../Styles";
 
 // The DurationInput component is a controlled component that takes
 // in a value and a function to handle the change of the value.
@@ -13,10 +14,10 @@ export default function DurationInput({ value, onDurationChange }) {
         value={value}
         onChangeText={changeDurationHandler}
         keyboardType="numeric"
-        style={{ borderBottomWidth: 1, borderBottomColor: "black" }}
+        style={styles.inputContainer}
       />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({ inputContainer: inputContainerStyle });

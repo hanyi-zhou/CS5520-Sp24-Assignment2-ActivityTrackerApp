@@ -16,6 +16,7 @@ export const useActivitiesList = () => {
 export const ActivitiesListProvider = ({ children }) => {
   const [activities, setActivities] = useState([]);
 
+  // Add an activity to the list
   const addActivity = (activity) => {
     setActivities((prevActivities) => [activity, ...prevActivities]);
   };

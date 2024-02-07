@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Platform,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateInput from "./DateInput";
@@ -36,7 +30,7 @@ export default function DatePicker({ onDateChange }) {
         <DateTimePicker
           value={date}
           mode={"date"}
-          display={Platform.OS === "ios" ? "inline" : "calendar"}
+          display={"inline"}
           onChange={onChange}
         />
       )}

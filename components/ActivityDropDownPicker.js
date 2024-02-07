@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import DropDownPicker from "react-native-dropdown-picker";
+import { activityDropDownPickerStyles } from "../Styles";
 
 // The ActivityDorpDownPicker component is a simple component that
 // displays a dropdown picker to select an activity.
@@ -31,8 +32,13 @@ export default function ActivityDorpDownPicker({ onActivityChange }) {
       setItems={setItems}
       placeholder="Select An Activity"
       onChangeValue={handleActivityChange}
+      containerStyle={styles.containerStyle}
+      textStyle={styles.textStyle}
     />
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containerStyle: activityDropDownPickerStyles.container,
+  textStyle: activityDropDownPickerStyles.textStyle,
+});

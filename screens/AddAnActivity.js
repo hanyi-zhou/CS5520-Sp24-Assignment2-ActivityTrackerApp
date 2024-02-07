@@ -6,25 +6,31 @@ import DatePicker from "../components/DatePicker";
 import CancelButton from "../components/CancelButton";
 import SaveButton from "../components/SaveButton";
 import { useActivitiesList } from "../components/ActivitiesListContext";
+import { activitiesScreenStyles, addAnActivityStyles } from "../Styles";
 
+// The AddAnActivity screen is a form that allows the user to add a new activity.
 export default function AddAnActivity({ navigation }) {
   const { addActivity } = useActivitiesList();
   const [activity, setActivity] = React.useState("");
   const [duration, setDuration] = React.useState("");
   const [date, setDate] = React.useState(null);
 
+  // Handle the activity change
   function handleActivityChange(activity) {
     setActivity(activity);
   }
 
+  // Handle the duration change
   function handleDurationChange(duration) {
     setDuration(duration);
   }
 
+  // Handle the date change
   function handleDateChange(date) {
     setDate(date);
   }
 
+  // Validate the duration input
   function validateDurationInput(duration) {
     const isNumber = /^[0-9]+$/.test(duration);
     // If the phone number is not a number or is empty or is negative
@@ -34,6 +40,7 @@ export default function AddAnActivity({ navigation }) {
     return true;
   }
 
+  // Handle the cancel button press
   function handleCancel() {
     setActivity("");
     setDuration("");
@@ -71,34 +78,35 @@ export default function AddAnActivity({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Activity *</Text>
-        <ActivityDropDownPicker onActivityChange={handleActivityChange} />
-      </View>
-      <View>
-        <Text>Duration (min) *</Text>
-        <DurationInput
-          value={duration}
-          onDurationChange={handleDurationChange}
-        />
-      </View>
-      <View>
-        <Text>Date *</Text>
-        <DatePicker onDateChange={handleDateChange} />
-      </View>
-      <View>
-        <CancelButton onCancel={handleCancel} />
-        <SaveButton onSave={handleSave} />
+      <View style={styles.formContainer}>
+        <View style={styles.dropDownContainer}>
+          <Text style={styles.text}>Activity *</Text>
+          <ActivityDropDownPicker onActivityChange={handleActivityChange} />
+        </View>
+        <View>
+          <Text style={styles.text}>Duration (min) *</Text>
+          <DurationInput
+            value={duration}
+            onDurationChange={handleDurationChange}
+          />
+        </View>
+        <View>
+          <Text style={styles.text}>Date *</Text>
+          <DatePicker onDateChange={handleDateChange} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <CancelButton onCancel={handleCancel} />
+          <SaveButton onSave={handleSave} />
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    rowGap: 20,
-  },
+  container: activitiesScreenStyles.container,
+  formContainer: addAnActivityStyles.formContainer,
+  dropDownContainer: addAnActivityStyles.dropDownContainer,
+  text: addAnActivityStyles.text,
+  buttonContainer: addAnActivityStyles.buttonContainer,
 });

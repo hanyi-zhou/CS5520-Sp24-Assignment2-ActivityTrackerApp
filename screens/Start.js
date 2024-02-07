@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, NameInput } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import EmailInput from "../components/EmailInput";
 import PhoneNumberInput from "../components/PhoneNumberInput";
 import ResetButton from "../components/ResetButton";
 import StartButton from "../components/StartButton";
+import { startScreenStyles } from "../Styles";
 
 // The Start screen is a simple screen that displays a form to
 // enter an email address and a phone number.
@@ -74,22 +75,29 @@ export default function Start({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Email Address</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Email Address</Text>
         <EmailInput value={email} onEmailChange={handleEmailChange} />
+        <View style={styles.errorTextContainer}>
+          {emailError !== "" ? (
+            <Text style={styles.errorText}>{emailError}</Text>
+          ) : null}
+        </View>
       </View>
-      <View>{emailError !== "" ? <Text>{emailError}</Text> : null}</View>
-      <View>
-        <Text>Phone Number</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Phone Number</Text>
         <PhoneNumberInput
           value={phoneNumber}
           onPhoneNumberChange={handlePhoneNumberChange}
         />
+        <View style={styles.errorTextContainer}>
+          {phoneNumberError !== "" ? (
+            <Text style={styles.errorText}>{phoneNumberError}</Text>
+          ) : null}
+        </View>
       </View>
-      <View>
-        {phoneNumberError !== "" ? <Text>{phoneNumberError}</Text> : null}
-      </View>
-      <View>
+
+      <View style={styles.buttonContainer}>
         <ResetButton onReset={handleReset} />
         <StartButton
           onStart={handleStart}
@@ -101,9 +109,10 @@ export default function Start({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  container: startScreenStyles.container,
+  inputContainer: startScreenStyles.inputContainer,
+  text: startScreenStyles.text,
+  errorTextContainer: startScreenStyles.errorTextContainer,
+  errorText: startScreenStyles.errorText,
+  buttonContainer: startScreenStyles.buttonContainer,
 });

@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import { activitiesTabBarStyles } from "../Styles";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 // The ActivitiesTabBar component is a custom tab bar that takes in
 // the navigation, state, and descriptors from the useTabBar hook.
@@ -16,8 +18,10 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
               ? options.title
               : route.name;
 
+          // Check if the tab is focused
           const isFocused = state.index === index;
 
+          // Define the onPress and onLongPress functions for each tab
           const onPress = () => {
             const event = navigation.emit({
               type: "tabPress",
@@ -36,6 +40,17 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
             });
           };
 
+          // Define the icon for each tab
+          const icon =
+            route.name === "All Activities" ? (
+              <FontAwesome
+                name="dollar"
+                size={activitiesTabBarStyles.iconSize}
+              />
+            ) : (
+              <Ionicons name="alert" size={activitiesTabBarStyles.iconSize} />
+            );
+
           return (
             <TouchableOpacity
               key={route.key}
@@ -47,13 +62,29 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
               onLongPress={onLongPress}
               style={styles.tabItem}
             >
-              <Text
-                style={{
-                  color: isFocused ? "#673ab7" : "#222",
-                }}
-              >
-                {label}
-              </Text>
+              <View style={styles.textContainer}>
+                <Text
+                  style={{
+                    color: isFocused
+                      ? activitiesTabBarStyles.tabFocusedColor
+                      : activitiesTabBarStyles.tabUnfocusedColor,
+                    fontWeight: activitiesTabBarStyles.fontWeight,
+                  }}
+                >
+                  {icon}
+                </Text>
+                <Text
+                  style={{
+                    color: isFocused
+                      ? activitiesTabBarStyles.tabFocusedColor
+                      : activitiesTabBarStyles.tabUnfocusedColor,
+                    fontWeight: activitiesTabBarStyles.fontWeight,
+                    fontSize: activitiesTabBarStyles.fontSize,
+                  }}
+                >
+                  {label}
+                </Text>
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -63,15 +94,8 @@ export default function ActivitiesTabBar({ navigation, state, descriptors }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  tabContainer: {
-    flexDirection: "row",
-    width: "100%",
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: "center",
-  },
+  container: activitiesTabBarStyles.container,
+  tabContainer: activitiesTabBarStyles.tabContainer,
+  tabItem: activitiesTabBarStyles.tabItem,
+  textContainer: activitiesTabBarStyles.textContainer,
 });
