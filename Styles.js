@@ -160,12 +160,19 @@ export const addAnActivityStyles = {
 
 //  The styles for the ActivityDropDownPicker component.
 export const activityDropDownPickerStyles = {
-  container: {
-    zIndex: 1,
+  boxStyles: {
+    backgroundColor: "white",
   },
-  textStyle: {
-    fontSize: 18,
+  inputStyles: {
     color: "darkslateblue",
+    fontSize: 18,
+  },
+  dropdownStyles: {
+    backgroundColor: "white",
+  },
+  dropdownTextStyles: {
+    color: "darkslateblue",
+    fontSize: 18,
   },
 };
 
