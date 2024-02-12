@@ -16,16 +16,18 @@ export default function DatePicker({ onDateChange }) {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
+    setText(currentDate.toDateString());
     setShow(false);
     onDateChange(currentDate);
-    setText(currentDate.toDateString());
   };
 
   // The showDatePicker function is called when the user presses the input
-  // field. It sets the show state to true and updates the text state with
-  // the current date.
+  // field. It toggles the show state and updates the text state with the
+  // date value.
   const showDatePicker = () => {
-    setShow(true);
+    // If the user presses the input field, the show state is toggled and
+    // the date picker is displayed or hidden.
+    setShow(!show);
     setText(date.toDateString());
   };
 
