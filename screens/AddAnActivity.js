@@ -13,7 +13,7 @@ export default function AddAnActivity({ navigation }) {
   const { addActivity } = useActivitiesList();
   const [activity, setActivity] = React.useState("");
   const [duration, setDuration] = React.useState("");
-  const [date, setDate] = React.useState(null);
+  const [date, setDate] = React.useState(new Date());
 
   // Handle the activity change
   function handleActivityChange(activity) {
