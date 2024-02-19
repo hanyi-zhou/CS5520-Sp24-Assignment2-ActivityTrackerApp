@@ -1,20 +1,76 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Start from "./screens/Start";
+import AllActivities from "./screens/AllActivities";
+import SpecialActivities from "./screens/SpecialActivities";
+import AddAnActivity from "./screens/AddAnActivity";
+import ActivitiesTabBar from "./components/ActivitiesTabBar";
+import AddButton from "./components/AddButton";
+import { ActivitiesListProvider } from "./components/ActivitiesListContext";
+import { navigationBackgroundColor, navigationTintColor } from "./Styles";
 
+// Create the navigation stack and tab navigator
+const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+// The ActivitiesStack component is a tab navigator that contains
+// the AllActivities and SpecialActivities screens. It also contains
+// a button to add a new activity.
+const ActivitiesStack = ({ navigation }) => {
+  function handleAdd() {
+    navigation.navigate("Add An Activity");
+  }
+  return (
+    <Tab.Navigator
+      tabBar={(props) => <ActivitiesTabBar {...props} />}
+      screenOptions={({ navigation }) => ({
+        headerRight: () => <AddButton onAdd={handleAdd} />,
+        headerStyle: {
+          backgroundColor: navigationBackgroundColor,
+        },
+        headerTintColor: navigationTintColor,
+      })}
+    >
+      <Tab.Screen name="All Activities" component={AllActivities} />
+      <Tab.Screen name="Special Activities" component={SpecialActivities} />
+    </Tab.Navigator>
+  );
+};
+
+// The App component is the root component of the application. It
+// wraps the entire application with the ActivitiesListProvider and
+// contains the navigation stack for the Start, Activities, and
+// Add An Activity screens.
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ActivitiesListProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Start" component={Start} />
+          <Stack.Screen name="Activities" component={ActivitiesStack} />
+          <Stack.Screen
+            name="Add An Activity"
+            component={AddAnActivity}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: navigationBackgroundColor,
+              },
+              headerTintColor: navigationTintColor,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ActivitiesListProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create();
