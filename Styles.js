@@ -31,6 +31,19 @@ export const startScreenStyles = {
     marginTop: 20,
     justifyContent: "space-between",
   },
+  resetButton: {
+    backgroundColor: "red",
+    width: "45%",
+  },
+  startButton: {
+    backgroundColor: "darkslateblue",
+    width: "45%",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
 };
 
 // The styles for the input components.
@@ -174,6 +187,17 @@ export const activityDropDownPickerStyles = {
     color: "darkslateblue",
     fontSize: 18,
   },
+};
+
+//
+export const pressableButtonStyles = {
+  defaultStyle: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "#f0f0f0",
+  },
+  pressed: { opacity: 0.5 },
+  disabled: { opacity: 0.5 },
 };
 
 // The styles for the colors used in the application.

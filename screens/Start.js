@@ -4,6 +4,7 @@ import EmailInput from "../components/EmailInput";
 import PhoneNumberInput from "../components/PhoneNumberInput";
 import ResetButton from "../components/ResetButton";
 import StartButton from "../components/StartButton";
+import PressableButton from "../components/PressableButton";
 import { startScreenStyles } from "../Styles";
 
 // The Start screen is a simple screen that displays a form to
@@ -98,11 +99,24 @@ export default function Start({ navigation }) {
       </View>
 
       <View style={styles.buttonContainer}>
-        <ResetButton onReset={handleReset} />
+        {/* <ResetButton onReset={handleReset} />
         <StartButton
           onStart={handleStart}
           isInputEmpty={!email && !phoneNumber}
-        />
+        /> */}
+        <PressableButton
+          customStyle={styles.resetButton}
+          onPressFunction={handleReset}
+        >
+          <Text style={styles.buttonText}>Reset</Text>
+        </PressableButton>
+        <PressableButton
+          customStyle={styles.startButton}
+          onPressFunction={handleStart}
+          isDisabled={!email && !phoneNumber}
+        >
+          <Text style={styles.buttonText}>Start</Text>
+        </PressableButton>
       </View>
     </View>
   );
@@ -115,4 +129,7 @@ const styles = StyleSheet.create({
   errorTextContainer: startScreenStyles.errorTextContainer,
   errorText: startScreenStyles.errorText,
   buttonContainer: startScreenStyles.buttonContainer,
+  resetButton: startScreenStyles.resetButton,
+  startButton: startScreenStyles.startButton,
+  buttonText: startScreenStyles.buttonText,
 });

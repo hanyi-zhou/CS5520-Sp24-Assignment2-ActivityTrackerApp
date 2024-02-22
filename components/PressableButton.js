@@ -1,9 +1,11 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import React from "react";
+import { pressableButtonStyles } from "../Styles";
 
 export default function PressableButton({
   customStyle,
   onPressFunction,
+  isDisabled,
   children,
 }) {
   return (
@@ -12,8 +14,10 @@ export default function PressableButton({
       style={({ pressed }) => [
         styles.defaultStyle,
         customStyle,
+        isDisabled && styles.disabled,
         pressed && styles.pressed,
       ]}
+      disabled={isDisabled}
     >
       {children}
     </Pressable>
@@ -21,6 +25,7 @@ export default function PressableButton({
 }
 
 const styles = StyleSheet.create({
-  defaultStyle: {},
-  pressed: { opacity: 0.5 },
+  defaultStyle: pressableButtonStyles.defaultStyle,
+  pressed: pressableButtonStyles.pressed,
+  disabled: pressableButtonStyles.disabled,
 });
