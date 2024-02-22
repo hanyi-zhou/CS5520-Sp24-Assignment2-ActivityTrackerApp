@@ -1,39 +1,47 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { useActivitiesList } from "./ActivitiesListContext";
+import React, { useEffect, useState } from "react";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { database } from "../firebase-files/firebaseSetup";
 import { activitiesListStyles } from "../Styles";
 
-// The ActivitiesList component takes in a type prop and filters the
-// activities based on the type. It then renders the filtered activities
-// in a FlatList.
 export default function ActivitiesList({ type }) {
-  const { activities } = useActivitiesList();
+  const [activities, setActivities] = useState([]);
 
-  // Validate the activity based on the type and duration
-  const validateActivitySpecial = (activity) => {
-    if (activity.type === "Running" || activity.type === "Weights") {
-      if (parseInt(activity.duration) > 60) {
-        return true;
-      }
+  // Fetch the activities from the database
+  useEffect(() => {
+    const activitiesCollection = collection(database, "activities");
+
+    // Create a query based on the type
+    let queryActivities;
+    if (type === "special") {
+      queryActivities = query(
+        activitiesCollection,
+        where("special", "==", true)
+      );
+    } else {
+      queryActivities = activitiesCollection;
     }
-    return false;
-  };
 
-  // Filter the activities based on the screen type
-  const filteredActivities =
-    type === "special"
-      ? activities.filter((activity) => validateActivitySpecial(activity))
-      : activities;
+    const unsubscribe = onSnapshot(queryActivities, (snapshot) => {
+      const fetchedActivities = [];
+      snapshot.forEach((doc) => {
+        fetchedActivities.push({ id: doc.id, ...doc.data() });
+      });
+      setActivities(fetchedActivities);
+    });
+
+    return () => unsubscribe();
+  }, [type]); // Dependency array includes 'type' to re-run effect when type changes
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={filteredActivities}
-        keyExtractor={(item) => item.id.toString()}
+        data={activities}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text style={styles.typeText}>{item.type}</Text>
-            <Text>{validateActivitySpecial(item) ? "⚠️" : null}</Text>
+            {item.special && <Text>⚠️</Text>}
             <View style={styles.detailContainer}>
               <Text style={styles.dateText}>{item.date}</Text>
               <Text style={styles.detailText}>{item.duration} min</Text>

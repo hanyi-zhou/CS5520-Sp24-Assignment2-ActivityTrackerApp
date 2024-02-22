@@ -54,6 +54,16 @@ export default function AddAnActivity({ navigation }) {
     navigation.goBack();
   }
 
+  // Validate the activity based on the type and duration
+  function validateActivitySpecial(activity) {
+    if (activity.type === "Running" || activity.type === "Weights") {
+      if (parseInt(activity.duration) > 60) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function handleSave() {
     // Validate the duration
     const isDurationValid = validateDurationInput(duration);
@@ -68,9 +78,13 @@ export default function AddAnActivity({ navigation }) {
         type: activity,
         duration: parseInt(duration),
         date: date.toDateString(),
+        special: validateActivitySpecial({
+          type: activity,
+          duration: duration,
+        }),
       };
 
-      // Add the new activity to the activities list
+      // Add the new activity to the database
       //addActivity(newActivity);
       addActivityToDB(newActivity);
 
