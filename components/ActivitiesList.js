@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import PressableButton from "./PressableButton";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { database } from "../firebase-files/firebaseSetup";
 import { activitiesListStyles } from "../Styles";
@@ -39,14 +40,19 @@ export default function ActivitiesList({ type }) {
         data={activities}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
+          <PressableButton
+            customStyle={styles.itemContainer}
+            onPressFunction={() => {
+              console.log("Pressed");
+            }}
+          >
             <Text style={styles.typeText}>{item.type}</Text>
             {item.special && <Text>⚠️</Text>}
             <View style={styles.detailContainer}>
               <Text style={styles.dateText}>{item.date}</Text>
               <Text style={styles.detailText}>{item.duration} min</Text>
             </View>
-          </View>
+          </PressableButton>
         )}
         contentContainerStyle={styles.flatListContainer}
       />

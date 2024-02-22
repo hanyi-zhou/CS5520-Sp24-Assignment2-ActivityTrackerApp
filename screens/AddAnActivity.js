@@ -6,8 +6,6 @@ import DatePicker from "../components/DatePicker";
 import CancelButton from "../components/CancelButton";
 import SaveButton from "../components/SaveButton";
 import PressableButton from "../components/PressableButton";
-import { database } from "../firebase-files/firebaseSetup";
-import { collection, onSnapshot } from "firebase/firestore";
 import {
   addActivityToDB,
   deleteActivityFromDB,
