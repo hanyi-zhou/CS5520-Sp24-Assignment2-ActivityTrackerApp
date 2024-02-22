@@ -5,7 +5,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { database } from "../firebase-files/firebaseSetup";
 import { activitiesListStyles } from "../Styles";
 
-export default function ActivitiesList({ type }) {
+export default function ActivitiesList({ type, navigation }) {
   const [activities, setActivities] = useState([]);
 
   // Fetch the activities from the database
@@ -34,6 +34,11 @@ export default function ActivitiesList({ type }) {
     return () => unsubscribe();
   }, [type]); // Dependency array includes 'type' to re-run effect when type changes
 
+  // Handle the edit activity press
+  function handleEditActivity() {
+    navigation.navigate("Add An Activity", { editMode: true });
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -42,9 +47,7 @@ export default function ActivitiesList({ type }) {
         renderItem={({ item }) => (
           <PressableButton
             customStyle={styles.itemContainer}
-            onPressFunction={() => {
-              console.log("Pressed");
-            }}
+            onPressFunction={handleEditActivity}
           >
             <Text style={styles.typeText}>{item.type}</Text>
             {item.special && <Text>⚠️</Text>}

@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
 // a button to add a new activity.
 const ActivitiesStack = ({ navigation }) => {
   function handleAdd() {
-    navigation.navigate("Add An Activity");
+    navigation.navigate("Add An Activity", { editMode: false });
   }
   return (
     <Tab.Navigator

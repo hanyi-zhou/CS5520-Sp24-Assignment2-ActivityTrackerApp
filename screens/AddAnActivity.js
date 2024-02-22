@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Alert } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ActivityDropDownPicker from "../components/ActivityDropDownPicker";
 import DurationInput from "../components/DurationInput";
 import DatePicker from "../components/DatePicker";
@@ -14,11 +14,16 @@ import { useActivitiesList } from "../components/ActivitiesListContext";
 import { activitiesScreenStyles, addAnActivityStyles } from "../Styles";
 
 // The AddAnActivity screen is a form that allows the user to add a new activity.
-export default function AddAnActivity({ navigation }) {
+export default function AddAnActivity({ route, navigation }) {
   const { addActivity } = useActivitiesList();
-  const [activity, setActivity] = React.useState("");
-  const [duration, setDuration] = React.useState("");
-  const [date, setDate] = React.useState(new Date());
+  const [activity, setActivity] = useState("");
+  const [duration, setDuration] = useState("");
+  const [date, setDate] = useState(new Date());
+  const { editMode, activityId } = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({ title: editMode ? "Edit" : "Add an Activity" });
+  }, [editMode]);
 
   // Handle the activity change
   function handleActivityChange(activity) {
