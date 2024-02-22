@@ -6,6 +6,12 @@ import DatePicker from "../components/DatePicker";
 import CancelButton from "../components/CancelButton";
 import SaveButton from "../components/SaveButton";
 import PressableButton from "../components/PressableButton";
+import { database } from "../firebase-files/firebaseSetup";
+import { collection, onSnapshot } from "firebase/firestore";
+import {
+  addActivityToDB,
+  deleteActivityFromDB,
+} from "../firebase-files/fireStoreHelper";
 import { useActivitiesList } from "../components/ActivitiesListContext";
 import { activitiesScreenStyles, addAnActivityStyles } from "../Styles";
 
@@ -58,14 +64,15 @@ export default function AddAnActivity({ navigation }) {
     } else {
       // Create a new activity object
       const newActivity = {
-        id: Math.random().toString(), // Generate a random id
+        //id: Math.random().toString(), // Generate a random id
         type: activity,
         duration: parseInt(duration),
         date: date.toDateString(),
       };
 
       // Add the new activity to the activities list
-      addActivity(newActivity);
+      //addActivity(newActivity);
+      addActivityToDB(newActivity);
 
       // Clear the input fields
       setActivity("");

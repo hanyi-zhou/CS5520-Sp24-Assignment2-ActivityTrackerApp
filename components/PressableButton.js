@@ -2,6 +2,8 @@ import { Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { pressableButtonStyles } from "../Styles";
 
+// The PressableButton component is a simple component that displays a
+// pressable button.
 export default function PressableButton({
   customStyle,
   onPressFunction,
