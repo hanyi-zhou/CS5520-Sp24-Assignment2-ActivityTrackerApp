@@ -169,6 +169,19 @@ export const addAnActivityStyles = {
     justifyContent: "space-around",
     marginTop: 200,
   },
+  cancelButton: {
+    backgroundColor: "red",
+    width: "45%",
+  },
+  saveButton: {
+    backgroundColor: "darkslateblue",
+    width: "45%",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
 };
 
 //  The styles for the ActivityDropDownPicker component.
@@ -189,7 +202,7 @@ export const activityDropDownPickerStyles = {
   },
 };
 
-//
+// The styles for the PressableButton component.
 export const pressableButtonStyles = {
   defaultStyle: {
     padding: 10,
@@ -198,6 +211,18 @@ export const pressableButtonStyles = {
   },
   pressed: { opacity: 0.5 },
   disabled: { opacity: 0.5 },
+};
+
+// The styles for the App.js
+export const appStyles = {
+  addButton: {
+    backgroundColor: null,
+    paddingRight: 20,
+  },
+  addTextStyle: {
+    color: "white",
+    fontSize: 25,
+  },
 };
 
 // The styles for the colors used in the application.

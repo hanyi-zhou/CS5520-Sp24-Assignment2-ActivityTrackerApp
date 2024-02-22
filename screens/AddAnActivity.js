@@ -5,6 +5,7 @@ import DurationInput from "../components/DurationInput";
 import DatePicker from "../components/DatePicker";
 import CancelButton from "../components/CancelButton";
 import SaveButton from "../components/SaveButton";
+import PressableButton from "../components/PressableButton";
 import { useActivitiesList } from "../components/ActivitiesListContext";
 import { activitiesScreenStyles, addAnActivityStyles } from "../Styles";
 
@@ -95,8 +96,20 @@ export default function AddAnActivity({ navigation }) {
           <DatePicker onDateChange={handleDateChange} />
         </View>
         <View style={styles.buttonContainer}>
-          <CancelButton onCancel={handleCancel} />
-          <SaveButton onSave={handleSave} />
+          {/* <CancelButton onCancel={handleCancel} />
+          <SaveButton onSave={handleSave} /> */}
+          <PressableButton
+            customStyle={styles.cancelButton}
+            onPressFunction={handleCancel}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </PressableButton>
+          <PressableButton
+            customStyle={styles.saveButton}
+            onPressFunction={handleSave}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </PressableButton>
         </View>
       </View>
     </View>
@@ -109,4 +122,7 @@ const styles = StyleSheet.create({
   dropDownContainer: addAnActivityStyles.dropDownContainer,
   text: addAnActivityStyles.text,
   buttonContainer: addAnActivityStyles.buttonContainer,
+  cancelButton: addAnActivityStyles.cancelButton,
+  saveButton: addAnActivityStyles.saveButton,
+  buttonText: addAnActivityStyles.buttonText,
 });
