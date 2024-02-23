@@ -254,3 +254,4 @@ export const resetButtonColor = "red";
 export const cancelButtonColor = "red";
 export const startButtonColor = "darkslateblue";
 export const saveButtonColor = "darkslateblue";
+export const androidRippleColor = "rgba(0, 0, 0, 0.2)";

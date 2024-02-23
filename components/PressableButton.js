@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import React from "react";
-import { pressableButtonStyles } from "../Styles";
+import { pressableButtonStyles, androidRippleColor } from "../Styles";
 
 // The PressableButton component is a simple component that displays a
 // pressable button.
@@ -19,6 +19,7 @@ export default function PressableButton({
         isDisabled && styles.disabled,
         pressed && styles.pressed,
       ]}
+      android_ripple={{ color: androidRippleColor }}
       disabled={isDisabled}
     >
       {children}

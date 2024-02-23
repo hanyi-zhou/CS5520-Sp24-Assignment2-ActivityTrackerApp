@@ -23,11 +23,14 @@ export default function ActivitiesList({ type, navigation }) {
       queryActivities = activitiesCollection;
     }
 
+    // Subscribe to the query
     const unsubscribe = onSnapshot(queryActivities, (snapshot) => {
       const fetchedActivities = [];
       snapshot.forEach((doc) => {
         fetchedActivities.push({ id: doc.id, ...doc.data() });
       });
+      // Sort the activities by date
+      fetchedActivities.sort((a, b) => new Date(b.date) - new Date(a.date));
       setActivities(fetchedActivities);
     });
 
