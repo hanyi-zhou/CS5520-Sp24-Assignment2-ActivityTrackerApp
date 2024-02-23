@@ -167,7 +167,7 @@ export const addAnActivityStyles = {
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 200,
+    marginTop: 20,
   },
   cancelButton: {
     backgroundColor: "red",
@@ -181,6 +181,20 @@ export const addAnActivityStyles = {
     color: "white",
     fontSize: 18,
     textAlign: "center",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  paragraph: {
+    color: "darkslateblue",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  bottomContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    marginTop: 200,
   },
 };
 
@@ -229,7 +243,6 @@ export const editStyles = {
   deleteButton: {
     backgroundColor: null,
     paddingRight: 20,
-    color: "white",
   },
 };
 

@@ -20,6 +20,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase-files/firebaseSetup";
+import Checkbox from "expo-checkbox";
 
 // The AddAnActivity screen is a form that allows the user to add a new activity.
 export default function AddAnActivity({ route, navigation }) {
@@ -28,6 +29,7 @@ export default function AddAnActivity({ route, navigation }) {
   const [duration, setDuration] = useState("");
   const [date, setDate] = useState(new Date());
   const { editMode, activityId } = route.params;
+  const [isChecked, setChecked] = useState(false);
 
   // Render the header based on the edit mode
   useEffect(() => {
@@ -205,21 +207,36 @@ export default function AddAnActivity({ route, navigation }) {
             onDateChange={handleDateChange}
           />
         </View>
-        <View style={styles.buttonContainer}>
-          {/* <CancelButton onCancel={handleCancel} />
+        <View style={styles.bottomContainer}>
+          {editMode && (
+            <View style={styles.checkboxContainer}>
+              <Text style={styles.paragraph}>
+                This item is marked as special. Select the checkbox if you would
+                like to approve it.
+              </Text>
+              <Checkbox
+                style={styles.checkbox}
+                value={isChecked}
+                onValueChange={setChecked}
+              />
+            </View>
+          )}
+          <View style={styles.buttonContainer}>
+            {/* <CancelButton onCancel={handleCancel} />
           <SaveButton onSave={handleSave} /> */}
-          <PressableButton
-            customStyle={styles.cancelButton}
-            onPressFunction={handleCancel}
-          >
-            <Text style={styles.buttonText}>Cancel</Text>
-          </PressableButton>
-          <PressableButton
-            customStyle={styles.saveButton}
-            onPressFunction={handleSave}
-          >
-            <Text style={styles.buttonText}>Save</Text>
-          </PressableButton>
+            <PressableButton
+              customStyle={styles.cancelButton}
+              onPressFunction={handleCancel}
+            >
+              <Text style={styles.buttonText}>Cancel</Text>
+            </PressableButton>
+            <PressableButton
+              customStyle={styles.saveButton}
+              onPressFunction={handleSave}
+            >
+              <Text style={styles.buttonText}>Save</Text>
+            </PressableButton>
+          </View>
         </View>
       </View>
     </View>
@@ -235,4 +252,8 @@ const styles = StyleSheet.create({
   cancelButton: addAnActivityStyles.cancelButton,
   saveButton: addAnActivityStyles.saveButton,
   buttonText: addAnActivityStyles.buttonText,
+  checkboxContainer: addAnActivityStyles.checkboxContainer,
+  checkbox: addAnActivityStyles.checkbox,
+  paragraph: addAnActivityStyles.paragraph,
+  bottomContainer: addAnActivityStyles.bottomContainer,
 });
