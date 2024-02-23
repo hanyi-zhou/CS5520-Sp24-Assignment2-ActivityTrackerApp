@@ -69,7 +69,21 @@ export default function AddAnActivity({ route, navigation }) {
 
   // Handle delete button press
   function handleDelete() {
-    deleteActivityFromDB(activityId);
+    Alert.alert(
+      "Delete",
+      "Are you sure you want to delete this item?",
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: () => {
+            deleteActivityFromDB(activityId);
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   }
 
   // Handle the activity change
