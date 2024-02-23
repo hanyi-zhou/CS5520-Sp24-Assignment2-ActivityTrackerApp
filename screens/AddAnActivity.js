@@ -41,7 +41,7 @@ export default function AddAnActivity({ route, navigation }) {
           customStyle={editStyles.deleteButton}
           onPressFunction={handleDelete}
         >
-          <AntDesign name="delete" size={24} color="white" />
+          {editMode && <AntDesign name="delete" size={24} color="white" />}
         </PressableButton>
       ),
     });
@@ -141,34 +141,8 @@ export default function AddAnActivity({ route, navigation }) {
       // Show an alert
       Alert.alert("Invalid input", "Please check your input values");
     } else {
-      // If editMode is true, update the activity in the database
       if (editMode) {
-        if (isChecked && special) {
-          // If the checkbox is checked and the activity is special,
-          // update the activity as not special
-          const updatedActivity = {
-            id: activityId,
-            type: activity,
-            duration: parseInt(duration),
-            date: date.toDateString(),
-            special: false,
-          };
-          updateActivityInDB(activityId, updatedActivity);
-        } else {
-          // If the checkbox is not checked or the activity is not special,
-          // update the activity as is
-          const updatedActivity = {
-            id: activityId,
-            type: activity,
-            duration: parseInt(duration),
-            date: date.toDateString(),
-            special: validateActivitySpecial({
-              type: activity,
-              duration: duration,
-            }),
-          };
-          updateActivityInDB(activityId, updatedActivity);
-        }
+        handleConfirmSave();
       } else {
         // Create a new activity object
         const newActivity = {
@@ -181,19 +155,21 @@ export default function AddAnActivity({ route, navigation }) {
             duration: duration,
           }),
         };
-
         // Add the new activity to the database
         //addActivity(newActivity);
         addActivityToDB(newActivity);
-      }
 
-      // Clear the input fields
-      setActivity("");
-      setDuration("");
-      setDate(null);
+        // Clear the input fields
+        setActivity("");
+        setDuration("");
+        setDate(null);
+        // Navigate back to the previous screen
+        navigation.goBack();
+      }
     }
   }
 
+  // Handle the confirm save button press
   function handleConfirmSave() {
     Alert.alert(
       "Important",
@@ -203,7 +179,34 @@ export default function AddAnActivity({ route, navigation }) {
         {
           text: "Yes",
           onPress: () => {
-            handleSave();
+            // If editMode is true, update the activity in the database
+            if (isChecked && special) {
+              // If the checkbox is checked and the activity is special,
+              // update the activity as not special
+              const updatedActivity = {
+                id: activityId,
+                type: activity,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: false,
+              };
+              updateActivityInDB(activityId, updatedActivity);
+            } else {
+              // If the checkbox is not checked or the activity is not special,
+              // update the activity as is
+              const updatedActivity = {
+                id: activityId,
+                type: activity,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: validateActivitySpecial({
+                  type: activity,
+                  duration: duration,
+                }),
+              };
+              updateActivityInDB(activityId, updatedActivity);
+            }
+
             // Navigate back to the previous screen
             navigation.goBack();
           },
@@ -264,7 +267,7 @@ export default function AddAnActivity({ route, navigation }) {
             </PressableButton>
             <PressableButton
               customStyle={styles.saveButton}
-              onPressFunction={handleConfirmSave}
+              onPressFunction={handleSave}
             >
               <Text style={styles.buttonText}>Save</Text>
             </PressableButton>

@@ -7,7 +7,6 @@ export async function addActivityToDB(activityData) {
       collection(database, "activities"),
       activityData
     );
-    console.log("Activity added with ID: ", docRef.id);
   } catch (err) {
     console.log(err.code);
   }
