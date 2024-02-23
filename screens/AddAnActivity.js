@@ -168,7 +168,11 @@ export default function AddAnActivity({ route, navigation }) {
         </View>
         <View>
           <Text style={styles.text}>Date *</Text>
-          <DatePicker onDateChange={handleDateChange} />
+          <DatePicker
+            editMode={editMode}
+            activityDate={date}
+            onDateChange={handleDateChange}
+          />
         </View>
         <View style={styles.buttonContainer}>
           {/* <CancelButton onCancel={handleCancel} />

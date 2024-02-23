@@ -1,14 +1,24 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateInput from "./DateInput";
 
 // The DatePicker component is a controlled component that displays a
 // date picker when the user presses the input field.
-export default function DatePicker({ onDateChange }) {
+export default function DatePicker({ editMode, activityDate, onDateChange }) {
   const [text, setText] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
+
+  // The useEffect hook is called when the component mounts. It sets the
+  // date state to the activityDate prop.
+  useEffect(() => {
+    if (editMode && activityDate) {
+      // If in edit mode and activityDate is provided, set the date to activityDate
+      setDate(activityDate);
+      setText(activityDate.toDateString());
+    }
+  }, [activityDate, editMode]);
 
   // The onChange function is called when the user selects a date from
   // the date picker. It updates the date state and calls the onDateChange
