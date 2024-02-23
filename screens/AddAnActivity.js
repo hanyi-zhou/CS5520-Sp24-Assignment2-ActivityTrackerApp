@@ -9,6 +9,7 @@ import PressableButton from "../components/PressableButton";
 import {
   addActivityToDB,
   deleteActivityFromDB,
+  updateActivityInDB,
 } from "../firebase-files/fireStoreHelper";
 import { useActivitiesList } from "../components/ActivitiesListContext";
 import {
@@ -136,21 +137,37 @@ export default function AddAnActivity({ route, navigation }) {
       // Show an alert
       Alert.alert("Invalid input", "Please check your input values");
     } else {
-      // Create a new activity object
-      const newActivity = {
-        //id: Math.random().toString(), // Generate a random id
-        type: activity,
-        duration: parseInt(duration),
-        date: date.toDateString(),
-        special: validateActivitySpecial({
+      // If editMode is true, update the activity in the database
+      if (editMode) {
+        // Update the existing activity in the database
+        const updatedActivity = {
+          id: activityId,
           type: activity,
-          duration: duration,
-        }),
-      };
+          duration: parseInt(duration),
+          date: date.toDateString(),
+          special: validateActivitySpecial({
+            type: activity,
+            duration: duration,
+          }),
+        };
+        updateActivityInDB(activityId, updatedActivity);
+      } else {
+        // Create a new activity object
+        const newActivity = {
+          //id: Math.random().toString(), // Generate a random id
+          type: activity,
+          duration: parseInt(duration),
+          date: date.toDateString(),
+          special: validateActivitySpecial({
+            type: activity,
+            duration: duration,
+          }),
+        };
 
-      // Add the new activity to the database
-      //addActivity(newActivity);
-      addActivityToDB(newActivity);
+        // Add the new activity to the database
+        //addActivity(newActivity);
+        addActivityToDB(newActivity);
+      }
 
       // Clear the input fields
       setActivity("");
