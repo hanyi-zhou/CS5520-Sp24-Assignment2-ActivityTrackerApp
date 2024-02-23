@@ -3,15 +3,12 @@ import React, { useEffect, useState } from "react";
 import ActivityDropDownPicker from "../components/ActivityDropDownPicker";
 import DurationInput from "../components/DurationInput";
 import DatePicker from "../components/DatePicker";
-import CancelButton from "../components/CancelButton";
-import SaveButton from "../components/SaveButton";
 import PressableButton from "../components/PressableButton";
 import {
   addActivityToDB,
   deleteActivityFromDB,
   updateActivityInDB,
 } from "../firebase-files/fireStoreHelper";
-import { useActivitiesList } from "../components/ActivitiesListContext";
 import {
   activitiesScreenStyles,
   addAnActivityStyles,
@@ -24,7 +21,6 @@ import Checkbox from "expo-checkbox";
 
 // The AddAnActivity screen is a form that allows the user to add a new activity.
 export default function AddAnActivity({ route, navigation }) {
-  const { addActivity } = useActivitiesList();
   const [activity, setActivity] = useState("");
   const [duration, setDuration] = useState("");
   const [special, setSpecial] = useState(false);
@@ -257,8 +253,6 @@ export default function AddAnActivity({ route, navigation }) {
             </View>
           )}
           <View style={styles.buttonContainer}>
-            {/* <CancelButton onCancel={handleCancel} />
-          <SaveButton onSave={handleSave} /> */}
             <PressableButton
               customStyle={styles.cancelButton}
               onPressFunction={handleCancel}

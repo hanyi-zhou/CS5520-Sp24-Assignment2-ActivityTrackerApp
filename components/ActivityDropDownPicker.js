@@ -11,20 +11,6 @@ export default function ActivityDorpDownPicker({
   editMode,
   onActivityChange,
 }) {
-  // const [open, setOpen] = React.useState(false);
-  // const [value, setValue] = React.useState(null);
-  // // The items state is an array of objects that represent the
-  // // activities that can be selected.
-  // const [items, setItems] = React.useState([
-  //   { label: "Running", value: "Running" },
-  //   { label: "Walking", value: "Walking" },
-  //   { label: "Swimming", value: "Swimming" },
-  //   { label: "Weights", value: "Weights" },
-  //   { label: "Yoga", value: "Yoga" },
-  //   { label: "Cycling", value: "Cycling" },
-  //   { label: "Hiking", value: "Hiking" },
-  // ]);
-
   // To fix the issue with dropdown picker scroll bugs on Android,
   // I have to use react-native-dropdown-select-list instead.
   const [selected, setSelected] = React.useState("");
@@ -59,18 +45,6 @@ export default function ActivityDorpDownPicker({
   const defaultOption = selected ? { key: selected, value: selected } : null;
 
   return (
-    // <DropDownPicker
-    //   open={open}
-    //   value={value}
-    //   items={items}
-    //   setOpen={setOpen}
-    //   setValue={setValue}
-    //   setItems={setItems}
-    //   placeholder="Select An Activity"
-    //   onChangeValue={handleActivityChange}
-    //   containerStyle={styles.containerStyle}
-    //   textStyle={styles.textStyle}
-    // />
     <SelectList
       setSelected={handleActivityChange}
       data={data}

@@ -2,8 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import EmailInput from "../components/EmailInput";
 import PhoneNumberInput from "../components/PhoneNumberInput";
-import ResetButton from "../components/ResetButton";
-import StartButton from "../components/StartButton";
 import PressableButton from "../components/PressableButton";
 import { startScreenStyles } from "../Styles";
 
@@ -99,11 +97,6 @@ export default function Start({ navigation }) {
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <ResetButton onReset={handleReset} />
-        <StartButton
-          onStart={handleStart}
-          isInputEmpty={!email && !phoneNumber}
-        /> */}
         <PressableButton
           customStyle={styles.resetButton}
           onPressFunction={handleReset}

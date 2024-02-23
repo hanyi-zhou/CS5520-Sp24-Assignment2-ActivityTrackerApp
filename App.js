@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -7,9 +7,7 @@ import AllActivities from "./screens/AllActivities";
 import SpecialActivities from "./screens/SpecialActivities";
 import AddAnActivity from "./screens/AddAnActivity";
 import ActivitiesTabBar from "./components/ActivitiesTabBar";
-import AddButton from "./components/AddButton";
 import PressableButton from "./components/PressableButton";
-import { ActivitiesListProvider } from "./components/ActivitiesListContext";
 import {
   navigationBackgroundColor,
   navigationTintColor,
@@ -58,30 +56,28 @@ const ActivitiesStack = ({ navigation }) => {
 // Add An Activity screens.
 export default function App() {
   return (
-    <ActivitiesListProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Activities" component={ActivitiesStack} />
+        <Stack.Screen
+          name="Add An Activity"
+          component={AddAnActivity}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            headerStyle: {
+              backgroundColor: navigationBackgroundColor,
+            },
+            headerTintColor: navigationTintColor,
           }}
-        >
-          <Stack.Screen name="Start" component={Start} />
-          <Stack.Screen name="Activities" component={ActivitiesStack} />
-          <Stack.Screen
-            name="Add An Activity"
-            component={AddAnActivity}
-            options={{
-              headerShown: true,
-              headerBackTitleVisible: false,
-              headerStyle: {
-                backgroundColor: navigationBackgroundColor,
-              },
-              headerTintColor: navigationTintColor,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ActivitiesListProvider>
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
