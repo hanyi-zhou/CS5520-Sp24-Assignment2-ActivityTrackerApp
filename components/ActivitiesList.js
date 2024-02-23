@@ -35,8 +35,11 @@ export default function ActivitiesList({ type, navigation }) {
   }, [type]); // Dependency array includes 'type' to re-run effect when type changes
 
   // Handle the edit activity press
-  function handleEditActivity() {
-    navigation.navigate("Add An Activity", { editMode: true });
+  function handleEditActivity(item) {
+    navigation.navigate("Add An Activity", {
+      editMode: true,
+      activityId: item.id,
+    });
   }
 
   return (
@@ -47,7 +50,7 @@ export default function ActivitiesList({ type, navigation }) {
         renderItem={({ item }) => (
           <PressableButton
             customStyle={styles.itemContainer}
-            onPressFunction={handleEditActivity}
+            onPressFunction={() => handleEditActivity(item)}
           >
             <Text style={styles.typeText}>{item.type}</Text>
             {item.special && <Text>⚠️</Text>}

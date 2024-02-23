@@ -11,7 +11,14 @@ import {
   deleteActivityFromDB,
 } from "../firebase-files/fireStoreHelper";
 import { useActivitiesList } from "../components/ActivitiesListContext";
-import { activitiesScreenStyles, addAnActivityStyles } from "../Styles";
+import {
+  activitiesScreenStyles,
+  addAnActivityStyles,
+  editStyles,
+} from "../Styles";
+import { AntDesign } from "@expo/vector-icons";
+import { doc, getDoc } from "firebase/firestore";
+import { database } from "../firebase-files/firebaseSetup";
 
 // The AddAnActivity screen is a form that allows the user to add a new activity.
 export default function AddAnActivity({ route, navigation }) {
@@ -21,9 +28,49 @@ export default function AddAnActivity({ route, navigation }) {
   const [date, setDate] = useState(new Date());
   const { editMode, activityId } = route.params;
 
+  // Render the header based on the edit mode
   useEffect(() => {
-    navigation.setOptions({ title: editMode ? "Edit" : "Add an Activity" });
+    navigation.setOptions({
+      title: editMode ? "Edit" : "Add an Activity",
+      headerRight: () => (
+        <PressableButton
+          customStyle={editStyles.deleteButton}
+          onPressFunction={handleDelete}
+        >
+          <AntDesign name="delete" size={24} color="white" />
+        </PressableButton>
+      ),
+    });
   }, [editMode]);
+
+  // If the edit mode is true, fetch the activity from the database
+  useEffect(() => {
+    if (editMode) {
+      // Fetch the activity from the database
+      const fetchActivity = async () => {
+        try {
+          const docRef = doc(database, "activities", activityId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const activityData = docSnap.data();
+            setActivity(activityData.type);
+            setDuration(activityData.duration.toString());
+            setDate(new Date(activityData.date));
+          } else {
+            console.log("No such document!");
+          }
+        } catch (err) {
+          console.error("Error getting document:", err);
+        }
+      };
+      fetchActivity();
+    }
+  }, [editMode, activityId]);
+
+  // Handle delete button press
+  function handleDelete() {
+    deleteActivityFromDB(activityId);
+  }
 
   // Handle the activity change
   function handleActivityChange(activity) {
@@ -106,7 +153,11 @@ export default function AddAnActivity({ route, navigation }) {
       <View style={styles.formContainer}>
         <View style={styles.dropDownContainer}>
           <Text style={styles.text}>Activity *</Text>
-          <ActivityDropDownPicker onActivityChange={handleActivityChange} />
+          <ActivityDropDownPicker
+            editMode={editMode}
+            activity={activity}
+            onActivityChange={handleActivityChange}
+          />
         </View>
         <View>
           <Text style={styles.text}>Duration (min) *</Text>

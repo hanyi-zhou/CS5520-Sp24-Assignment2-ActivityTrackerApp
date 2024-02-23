@@ -225,6 +225,14 @@ export const appStyles = {
   },
 };
 
+export const editStyles = {
+  deleteButton: {
+    backgroundColor: null,
+    paddingRight: 20,
+    color: "white",
+  },
+};
+
 // The styles for the colors used in the application.
 export const navigationBackgroundColor = "darkslateblue";
 export const navigationTintColor = "white";
