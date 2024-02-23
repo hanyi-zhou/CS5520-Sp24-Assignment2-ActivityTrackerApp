@@ -27,6 +27,7 @@ export default function AddAnActivity({ route, navigation }) {
   const { addActivity } = useActivitiesList();
   const [activity, setActivity] = useState("");
   const [duration, setDuration] = useState("");
+  const [special, setSpecial] = useState(false);
   const [date, setDate] = useState(new Date());
   const { editMode, activityId } = route.params;
   const [isChecked, setChecked] = useState(false);
@@ -59,6 +60,7 @@ export default function AddAnActivity({ route, navigation }) {
             setActivity(activityData.type);
             setDuration(activityData.duration.toString());
             setDate(new Date(activityData.date));
+            setSpecial(activityData.special);
           } else {
             console.log("No such document!");
           }
@@ -141,18 +143,32 @@ export default function AddAnActivity({ route, navigation }) {
     } else {
       // If editMode is true, update the activity in the database
       if (editMode) {
-        // Update the existing activity in the database
-        const updatedActivity = {
-          id: activityId,
-          type: activity,
-          duration: parseInt(duration),
-          date: date.toDateString(),
-          special: validateActivitySpecial({
+        if (isChecked && special) {
+          // If the checkbox is checked and the activity is special,
+          // update the activity as not special
+          const updatedActivity = {
+            id: activityId,
             type: activity,
-            duration: duration,
-          }),
-        };
-        updateActivityInDB(activityId, updatedActivity);
+            duration: parseInt(duration),
+            date: date.toDateString(),
+            special: false,
+          };
+          updateActivityInDB(activityId, updatedActivity);
+        } else {
+          // If the checkbox is not checked or the activity is not special,
+          // update the activity as is
+          const updatedActivity = {
+            id: activityId,
+            type: activity,
+            duration: parseInt(duration),
+            date: date.toDateString(),
+            special: validateActivitySpecial({
+              type: activity,
+              duration: duration,
+            }),
+          };
+          updateActivityInDB(activityId, updatedActivity);
+        }
       } else {
         // Create a new activity object
         const newActivity = {
@@ -175,10 +191,26 @@ export default function AddAnActivity({ route, navigation }) {
       setActivity("");
       setDuration("");
       setDate(null);
-
-      // Navigate back to the previous screen
-      navigation.goBack();
     }
+  }
+
+  function handleConfirmSave() {
+    Alert.alert(
+      "Important",
+      "Are you sure you want to save these changes?",
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: () => {
+            handleSave();
+            // Navigate back to the previous screen
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   }
 
   return (
@@ -208,7 +240,7 @@ export default function AddAnActivity({ route, navigation }) {
           />
         </View>
         <View style={styles.bottomContainer}>
-          {editMode && (
+          {editMode && special && (
             <View style={styles.checkboxContainer}>
               <Text style={styles.paragraph}>
                 This item is marked as special. Select the checkbox if you would
@@ -232,7 +264,7 @@ export default function AddAnActivity({ route, navigation }) {
             </PressableButton>
             <PressableButton
               customStyle={styles.saveButton}
-              onPressFunction={handleSave}
+              onPressFunction={handleConfirmSave}
             >
               <Text style={styles.buttonText}>Save</Text>
             </PressableButton>
