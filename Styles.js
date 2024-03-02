@@ -31,6 +31,19 @@ export const startScreenStyles = {
     marginTop: 20,
     justifyContent: "space-between",
   },
+  resetButton: {
+    backgroundColor: "red",
+    width: "45%",
+  },
+  startButton: {
+    backgroundColor: "darkslateblue",
+    width: "45%",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
 };
 
 // The styles for the input components.
@@ -154,6 +167,33 @@ export const addAnActivityStyles = {
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+    marginTop: 20,
+  },
+  cancelButton: {
+    backgroundColor: "red",
+    width: "45%",
+  },
+  saveButton: {
+    backgroundColor: "darkslateblue",
+    width: "45%",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  paragraph: {
+    color: "darkslateblue",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  bottomContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
     marginTop: 200,
   },
 };
@@ -176,6 +216,36 @@ export const activityDropDownPickerStyles = {
   },
 };
 
+// The styles for the PressableButton component.
+export const pressableButtonStyles = {
+  defaultStyle: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "#f0f0f0",
+  },
+  pressed: { opacity: 0.5 },
+  disabled: { opacity: 0.5 },
+};
+
+// The styles for the App.js
+export const appStyles = {
+  addButton: {
+    backgroundColor: null,
+    paddingRight: 20,
+  },
+  addTextStyle: {
+    color: "white",
+    fontSize: 25,
+  },
+};
+
+export const editStyles = {
+  deleteButton: {
+    backgroundColor: null,
+    paddingRight: 20,
+  },
+};
+
 // The styles for the colors used in the application.
 export const navigationBackgroundColor = "darkslateblue";
 export const navigationTintColor = "white";
@@ -184,3 +254,4 @@ export const resetButtonColor = "red";
 export const cancelButtonColor = "red";
 export const startButtonColor = "darkslateblue";
 export const saveButtonColor = "darkslateblue";
+export const androidRippleColor = "rgba(0, 0, 0, 0.2)";

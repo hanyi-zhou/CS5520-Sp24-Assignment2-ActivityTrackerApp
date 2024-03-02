@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -7,9 +7,12 @@ import AllActivities from "./screens/AllActivities";
 import SpecialActivities from "./screens/SpecialActivities";
 import AddAnActivity from "./screens/AddAnActivity";
 import ActivitiesTabBar from "./components/ActivitiesTabBar";
-import AddButton from "./components/AddButton";
-import { ActivitiesListProvider } from "./components/ActivitiesListContext";
-import { navigationBackgroundColor, navigationTintColor } from "./Styles";
+import PressableButton from "./components/PressableButton";
+import {
+  navigationBackgroundColor,
+  navigationTintColor,
+  appStyles,
+} from "./Styles";
 
 // Create the navigation stack and tab navigator
 const Stack = createNativeStackNavigator();
@@ -21,13 +24,20 @@ const Tab = createBottomTabNavigator();
 // a button to add a new activity.
 const ActivitiesStack = ({ navigation }) => {
   function handleAdd() {
-    navigation.navigate("Add An Activity");
+    navigation.navigate("Add An Activity", { editMode: false });
   }
   return (
     <Tab.Navigator
       tabBar={(props) => <ActivitiesTabBar {...props} />}
       screenOptions={({ navigation }) => ({
-        headerRight: () => <AddButton onAdd={handleAdd} />,
+        headerRight: () => (
+          <PressableButton
+            customStyle={appStyles.addButton}
+            onPressFunction={() => handleAdd()}
+          >
+            <Text style={appStyles.addTextStyle}>+</Text>
+          </PressableButton>
+        ),
         headerStyle: {
           backgroundColor: navigationBackgroundColor,
         },
@@ -46,30 +56,28 @@ const ActivitiesStack = ({ navigation }) => {
 // Add An Activity screens.
 export default function App() {
   return (
-    <ActivitiesListProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Activities" component={ActivitiesStack} />
+        <Stack.Screen
+          name="Add An Activity"
+          component={AddAnActivity}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            headerStyle: {
+              backgroundColor: navigationBackgroundColor,
+            },
+            headerTintColor: navigationTintColor,
           }}
-        >
-          <Stack.Screen name="Start" component={Start} />
-          <Stack.Screen name="Activities" component={ActivitiesStack} />
-          <Stack.Screen
-            name="Add An Activity"
-            component={AddAnActivity}
-            options={{
-              headerShown: true,
-              headerBackTitleVisible: false,
-              headerStyle: {
-                backgroundColor: navigationBackgroundColor,
-              },
-              headerTintColor: navigationTintColor,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ActivitiesListProvider>
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

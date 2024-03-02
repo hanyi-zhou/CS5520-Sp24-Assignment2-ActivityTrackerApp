@@ -5,10 +5,10 @@ import { activitiesScreenStyles } from "../Styles";
 
 // The SpecialActivities screen is a simple screen that displays
 // a list of special activities.
-export default function SpecialActivities() {
+export default function SpecialActivities({ navigation }) {
   return (
     <View style={styles.container}>
-      <ActivitiesList type="special" />
+      <ActivitiesList type="special" navigation={navigation} />
     </View>
   );
 }
